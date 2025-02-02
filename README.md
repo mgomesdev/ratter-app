@@ -4,16 +4,16 @@
 
 ### Wiki
 
--   [Introdução](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/wiki/INTRODUCAO.md)
--   [Arquitetura](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/wiki/ARQUITETURA.md)
--   [Padrôes e Normas](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/wiki/PADROES-E-NORMAS.md)
--   [Ambientes](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/wiki/AMBIENTES.md)
--   [Links Úteis](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/wiki/LINKS-UTEIS.md)
+-   [Introdução](https://github.com/mgomesdev/ratter-app/blob/main/docs/wiki/INTRODUCAO.md)
+-   [Arquitetura](https://github.com/mgomesdev/ratter-app/blob/main/docs/wiki/ARQUITETURA.md)
+-   [Padrôes e Normas](https://github.com/mgomesdev/ratter-app/blob/main/docs/wiki/PADROES-E-NORMAS.md)
+-   [Ambientes](https://github.com/mgomesdev/ratter-app/blob/main/docs/wiki/AMBIENTES.md)
+-   [Links Úteis](https://github.com/mgomesdev/ratter-app/blob/main/docs/wiki/LINKS-UTEIS.md)
 
 ### Processos
 
--   [Planejamento](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/processos/PLANEJAMENTO.md)
--   [Considerações Finais](https://github.com/matheusgrodrigues/rater-app/blob/develop/docs/processos/CONSIDERACOES-FINAIS.md)
+-   [Planejamento](https://github.com/mgomesdev/ratter-app/blob/main/docs/processos/PLANEJAMENTO.md)
+-   [Considerações Finais](https://github.com/mgomesdev/ratter-app/blob/main/docs/processos/CONSIDERACOES-FINAIS.md)
 
 ---
 
@@ -21,7 +21,7 @@
 
 1. Clone o repositório para sua máquina local usando o seguinte comando:
 
-    > git clone https://github.com/matheusgrodrigues/rater-app.git
+    > git clone https://github.com/mgomesdev/rater-app.git
 
 2. Navegue até o diretório do projeto:
 
