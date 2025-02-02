@@ -1,4 +1,4 @@
-## [Rater App](https://rater-app.vercel.app/) - Desafio Técnico Front-end
+## [Rater App](https://rater-app.vercel.app/) - Desafio Técnico Front-end - 2024
 
 ![Rater App](/docs/images/splash-screen.png 'Rater App')
 
