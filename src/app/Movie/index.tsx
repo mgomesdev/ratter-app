@@ -1,5 +1,5 @@
 import { Suspense, useRef } from 'react';
-import { Await, useLoaderData } from 'react-router';
+import { Await, useParams } from 'react-router';
 import styled from 'styled-components';
 
 import { MovieDetailSchema } from '../../schemas/MovieSchema';
@@ -30,10 +30,10 @@ import Heading from '../../components/atoms/Heading';
 import Button from '../../components/atoms/Button';
 import Icon from '../../components/atoms/Icon';
 
-import { LoaderMovieData } from './loader';
+import { movieDetailLoader, movieDetailSimilarLoader } from './loader';
 
 export default function Movie() {
-    const { movieDetailSimilar, movieDetail } = useLoaderData() as LoaderMovieData;
+    const { id } = useParams();
 
     const carrouselSimilarRef = useRef<CarrouselActorRef>(null);
     const carrouselActorRef = useRef<CarrouselActorRef>(null);
@@ -42,7 +42,7 @@ export default function Movie() {
         <>
             <SectionTrailer data-testid="section-trailer">
                 <Suspense fallback={<CardTrailerSkeleton />}>
-                    <Await resolve={movieDetail}>
+                    <Await resolve={movieDetailLoader(Number(id))}>
                         {(resolvedMovieDetail: MovieDetailSchema) => <CardTrailer movieDetail={resolvedMovieDetail} />}
                     </Await>
                 </Suspense>
@@ -51,7 +51,7 @@ export default function Movie() {
             <SectionCarrousel data-testid="section-category">
                 <div>
                     <Suspense fallback={<CarrouselCategorySkeleton />}>
-                        <Await resolve={movieDetail}>
+                        <Await resolve={movieDetailLoader(Number(id))}>
                             {(resolvedMovieDetail: MovieDetailSchema) => (
                                 <CarrouselCategory
                                     genres={resolvedMovieDetail ? resolvedMovieDetail.genres : undefined}
@@ -64,7 +64,7 @@ export default function Movie() {
 
             <SectionDescription data-testid="section-description">
                 <Suspense fallback={<></>}>
-                    <Await resolve={movieDetail}>
+                    <Await resolve={movieDetailLoader(Number(id))}>
                         {(resolvedMovieDetail: MovieDetailSchema) => (
                             <SectionDescriptionSideDescContent data-testid="section-description-side-description">
                                 <SectionDescriptionSideDescTitleContainer>
@@ -121,7 +121,7 @@ export default function Movie() {
 
                 <SectionDescriptionSideStaff data-testid="section-description-side-staff">
                     <Suspense>
-                        <Await resolve={movieDetail}>
+                        <Await resolve={movieDetailLoader(Number(id))}>
                             {(resolvedMovieDetail: MovieDetailSchema) => (
                                 <>
                                     <StaffItem>
@@ -252,7 +252,7 @@ export default function Movie() {
                 </TitleCarrouselContainer>
 
                 <Suspense fallback={<CarrouselCardActorSkeleton />}>
-                    <Await resolve={movieDetail}>
+                    <Await resolve={movieDetailLoader(Number(id))}>
                         {(resolvedMovieDetail: MovieDetailSchema) => (
                             <div>
                                 <CarrouselActor
@@ -317,7 +317,7 @@ export default function Movie() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardMovieSkeleton inline={'true'} />}>
-                        <Await resolve={movieDetailSimilar}>
+                        <Await resolve={movieDetailSimilarLoader(Number(id))}>
                             {(resolvedSimilar) => (
                                 <CarrouselMovie
                                     movies={resolvedSimilar ? resolvedSimilar.results : undefined}

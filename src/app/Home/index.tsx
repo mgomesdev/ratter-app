@@ -17,28 +17,24 @@ import {
     CarrouselCardActorSkeleton,
 } from '../../components/organisms/CarrouselActor';
 
-import MovieService from '../../services/MovieService';
-import ActorService from '../../services/ActorService';
+import {
+    getAllActorsLoader,
+    highlightMovieDetailLoader,
+    highlightMoviesLoader,
+    latestReleaseMoviesLoader,
+    recommendedMoviesLoader,
+} from './loader';
 
 function Home() {
     const carrouselLatestReleaseRef = useRef<CarrouselMovieRef>(null);
     const carrouselRecommendedRef = useRef<CarrouselMovieRef>(null);
     const carrouselActorRef = useRef<CarrouselActorRef>(null);
 
-    const getHighlightMovie = async () => {
-        const highlights = await MovieService.getHighlights();
-
-        if (highlights.results.length > 0) {
-            const result = await MovieService.getById(highlights.results[0].id);
-            return result;
-        }
-    };
-
     return (
         <>
             <SectionHighlight data-testid="section-highlight">
                 <Suspense fallback={<CardMovieHighlightSkeleton />}>
-                    <Await resolve={getHighlightMovie()}>
+                    <Await resolve={highlightMovieDetailLoader()}>
                         {(resolvedHighlightMovieDetail) => (
                             <CardMovieHighlight
                                 highlightMovie={resolvedHighlightMovieDetail}
@@ -62,7 +58,7 @@ function Home() {
 
                     <div>
                         <Suspense fallback={<CarrouselCardMovieSkeleton />}>
-                            <Await resolve={MovieService.getHighlights()}>
+                            <Await resolve={highlightMoviesLoader()}>
                                 {(resolvedHighlightsToo) => (
                                     <CarrouselMovie
                                         enableVerticalOnDesktop
@@ -123,7 +119,7 @@ function Home() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardMovieSkeleton inline={'true'} />}>
-                        <Await resolve={MovieService.getLatestReleases()}>
+                        <Await resolve={latestReleaseMoviesLoader()}>
                             {(resolvedLatestReleases) => (
                                 <CarrouselMovie
                                     movies={resolvedLatestReleases.results ?? undefined}
@@ -183,7 +179,7 @@ function Home() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardMovieSkeleton inline={'true'} />}>
-                        <Await resolve={MovieService.getLatestReleases()}>
+                        <Await resolve={recommendedMoviesLoader()}>
                             {(resolvedRecommended) => (
                                 <CarrouselMovie
                                     movies={resolvedRecommended.results ?? undefined}
@@ -243,7 +239,7 @@ function Home() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardActorSkeleton />}>
-                        <Await resolve={ActorService.getAll()}>
+                        <Await resolve={getAllActorsLoader()}>
                             {(resolvedActors) => (
                                 <CarrouselActor actors={resolvedActors.results ?? undefined} ref={carrouselActorRef} />
                             )}
