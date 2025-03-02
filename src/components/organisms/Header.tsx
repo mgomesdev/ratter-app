@@ -26,6 +26,7 @@ export default function Header() {
             try {
                 const data = await MovieService.filterByQuery(query);
 
+                console.log(data);
                 if (filteredMovies) {
                     setFilteredMovies([...filteredMovies, ...data.results]);
                 } else {
@@ -76,12 +77,12 @@ export default function Header() {
                         filterRef.current?.setList(filterQueryOnStore);
                         filterButtonRef.current?.setCount(filterQueryOnStore.length);
                     } else {
-                        filterRef.current?.setLoading(true);
-
                         const filterAndUpdateStore = await fetchAndUpdateFilterStore(encodeQuery);
                         const filterAgain = filterMovies(encodeQuery, filterAndUpdateStore!);
 
                         if (filterAgain.length > 0) {
+                            filterRef.current?.setOpenList(true);
+
                             filterRef.current?.setList(filterAgain);
                             filterButtonRef.current?.setCount(filterAgain.length);
                         }
@@ -132,7 +133,7 @@ export default function Header() {
                     <Logo data-testid="header-logo" src="/logo.svg" alt="Rater App - Logo" />
                 </Link>
 
-                <FormContainer>
+                <FormContainer data-testid="search">
                     <Form data-testid="header-form-search" onSubmit={handleSubmit} ref={formRef}>
                         <Button
                             config={{ variant: 'rounded-icon-button' }}

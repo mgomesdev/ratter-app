@@ -49,8 +49,12 @@ const FilterList = forwardRef<FilterListRef, FilterListProps>((props, ref) => {
                             <CardMovieLoader>Carregando...</CardMovieLoader>
                         ) : (
                             list.length > 0 &&
-                            list.map((movie) => (
-                                <CardMovieList onClick={() => navigate(`/movie/${movie.id}`)} key={movie.id}>
+                            list.map((movie, key) => (
+                                <CardMovieList
+                                    data-testid={`movie-item-${key}`}
+                                    onClick={() => navigate(`/movie/${movie.id}`)}
+                                    key={movie.id}
+                                >
                                     <CardMovie>
                                         <Image
                                             data-testid="atom-image"

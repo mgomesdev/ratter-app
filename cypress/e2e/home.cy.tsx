@@ -2,7 +2,13 @@ describe('Home', () => {
     beforeEach(() => cy.visit('/'));
 
     describe('TODO', () => {
-        it('Deve renderizar o header', () => {
+        it.only('Deve renderizar o header', () => {
+            cy.get('[data-testid="header"]');
+            cy.get('[data-testid="search"]').type('test');
+            cy.get('[data-testid="header-form-search-btn-search"]').click();
+            cy.get('[data-testid="movie-item-1"]').click();
+            cy.url().should('match', /\/movie\/\d+$/);
+
             cy.log('Deve renderizar o header');
             cy.log('Ao realizar a busca do filme deve mostrar a lista de filmes correspondentes a busca');
             cy.log('Ao clicar no filme listado, deve redirecionar para a pagina do filme clicado');
