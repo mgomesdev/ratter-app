@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router';
 
 import SpecDuratCatYear from '../SpecDuratCatYear';
 import SpecRatingView from '../SpecRatingView';
@@ -20,14 +19,11 @@ import {
 } from '../../../core/utils/format';
 import { Link } from 'react-router-dom';
 
-interface CardMovieHighlightProps
-    extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface CardMovieHighlightProps extends React.HTMLAttributes<HTMLDivElement> {
     highlightMovie: MovieDetailSchema | undefined;
 }
 
 export default function CardMovieHighlight({ highlightMovie, ...props }: CardMovieHighlightProps) {
-    const navigate = useNavigate();
-
     return (
         <CardMovieHighlightStyled movie={highlightMovie} {...props}>
             {highlightMovie ? (

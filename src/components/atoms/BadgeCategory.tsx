@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface BadgeCategoryProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface BadgeCategoryProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
 }
 

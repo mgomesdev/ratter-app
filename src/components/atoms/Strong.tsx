@@ -8,7 +8,7 @@ interface StrongConfig {
     size: 12 | 14 | 20;
 }
 
-interface StrongProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
+interface StrongProps extends React.HTMLAttributes<HTMLElement> {
     config: StrongConfig;
 }
 

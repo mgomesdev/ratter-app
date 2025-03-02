@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface ImageProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {}
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
 export default function Image({ ...props }: ImageProps) {
     return <ImageStyled {...props} />;

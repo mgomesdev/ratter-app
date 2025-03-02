@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface BulletDividerProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+interface BulletDividerProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BulletDivider({ ...props }: BulletDividerProps) {
     return <BulletDividerStyled {...props} />;

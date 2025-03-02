@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import BulletDivider from '../atoms/BulletDivider';
 import Strong from '../atoms/Strong';
 
-interface SpecDuratCatYearProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface SpecDuratCatYearProps extends React.HTMLAttributes<HTMLDivElement> {
     config: {
         duratLabel: string;
         yearLabel: string;

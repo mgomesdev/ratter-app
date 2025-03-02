@@ -7,8 +7,7 @@ interface ParagraphConfig {
     size: 12 | 13 | 16 | 24;
 }
 
-interface ParagraphProps
-    extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
+interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
     children: React.ReactNode;
     config: ParagraphConfig;
 }

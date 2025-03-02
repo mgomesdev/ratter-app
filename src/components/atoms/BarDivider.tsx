@@ -8,7 +8,7 @@ interface BarDividerConfig {
     };
 }
 
-interface BarDividerProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+interface BarDividerProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function BarDivider({ config, ...props }: BarDividerProps & BarDividerConfig) {
     const { height, width } = config;

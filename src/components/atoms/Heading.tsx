@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export interface HeadingProps
-    extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> {
+export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
     children: React.ReactNode;
     config: HeadingConfig;
 }

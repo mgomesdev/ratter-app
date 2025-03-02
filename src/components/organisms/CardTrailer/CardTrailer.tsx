@@ -6,7 +6,7 @@ import Icon from '../../atoms/Icon';
 import { MovieDetailSchema } from '../../../schemas/MovieSchema';
 import { useCallback, useState } from 'react';
 
-interface CardTrailerProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface CardTrailerProps extends React.HTMLAttributes<HTMLDivElement> {
     movieDetail: MovieDetailSchema | undefined;
 }
 

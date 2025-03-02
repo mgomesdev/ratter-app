@@ -14,7 +14,7 @@ export interface FilterRef {
     setList: (movieList: MovieSchema[]) => void;
 }
 
-interface FilterProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+interface FilterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Filter: React.ForwardRefRenderFunction<FilterRef, FilterProps> = (props, ref) => {
     const filterSettingsRef = useRef<FilterSettingsRef>(null);

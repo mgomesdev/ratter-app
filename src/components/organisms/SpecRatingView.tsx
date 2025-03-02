@@ -5,7 +5,7 @@ import Strong from '../atoms/Strong';
 import Icon from '../atoms/Icon';
 import React from 'react';
 
-interface SpecRatingViewProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface SpecRatingViewProps extends React.HTMLAttributes<HTMLDivElement> {
     config: {
         ratingLabel: string;
         viewLabel: string;

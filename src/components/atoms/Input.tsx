@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface InputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export default function Input({ ...props }: InputProps) {
     return <InputStyled {...props} />;

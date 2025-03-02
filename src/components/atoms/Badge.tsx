@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Icon, { IconSize, IconType } from './Icon';
 
-interface BadgeProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     config: {
         iconColor: 'yellow' | 'white';
         icon: IconType;
