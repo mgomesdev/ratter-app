@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useRef } from 'react';
-import { Await, useLoaderData } from 'react-router';
+import { Suspense, useRef } from 'react';
+import { Await } from 'react-router';
 import styled from 'styled-components';
 
 import Button from '../../components/atoms/Button';
@@ -17,35 +17,31 @@ import {
     CarrouselCardActorSkeleton,
 } from '../../components/organisms/CarrouselActor';
 
-import { LoaderHomeData } from './loader';
 import MovieService from '../../services/MovieService';
+import ActorService from '../../services/ActorService';
 
 function Home() {
-    const { movieHightlightDetail, moviesHighlightsToo, moviesLatestReleases, moviesRecommended, actors } =
-        useLoaderData() as LoaderHomeData;
-
     const carrouselLatestReleaseRef = useRef<CarrouselMovieRef>(null);
     const carrouselRecommendedRef = useRef<CarrouselMovieRef>(null);
     const carrouselActorRef = useRef<CarrouselActorRef>(null);
 
-    useEffect(() => {
-        const test = async () => {
-            const a = await MovieService.getHighlights();
+    const getHighlightMovie = async () => {
+        const highlights = await MovieService.getHighlights();
 
-            console.log(a);
-        };
-
-        test();
-    }, []);
+        if (highlights.results.length > 0) {
+            const result = await MovieService.getById(highlights.results[0].id);
+            return result;
+        }
+    };
 
     return (
         <>
             <SectionHighlight data-testid="section-highlight">
                 <Suspense fallback={<CardMovieHighlightSkeleton />}>
-                    <Await resolve={movieHightlightDetail}>
+                    <Await resolve={getHighlightMovie()}>
                         {(resolvedHighlightMovieDetail) => (
                             <CardMovieHighlight
-                                highlightMovie={resolvedHighlightMovieDetail ?? undefined}
+                                highlightMovie={resolvedHighlightMovieDetail}
                                 data-testid="card-movie-highlight"
                             />
                         )}
@@ -66,7 +62,7 @@ function Home() {
 
                     <div>
                         <Suspense fallback={<CarrouselCardMovieSkeleton />}>
-                            <Await resolve={moviesHighlightsToo}>
+                            <Await resolve={MovieService.getHighlights()}>
                                 {(resolvedHighlightsToo) => (
                                     <CarrouselMovie
                                         enableVerticalOnDesktop
@@ -127,7 +123,7 @@ function Home() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardMovieSkeleton inline={'true'} />}>
-                        <Await resolve={moviesLatestReleases}>
+                        <Await resolve={MovieService.getLatestReleases()}>
                             {(resolvedLatestReleases) => (
                                 <CarrouselMovie
                                     movies={resolvedLatestReleases.results ?? undefined}
@@ -187,7 +183,7 @@ function Home() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardMovieSkeleton inline={'true'} />}>
-                        <Await resolve={moviesRecommended}>
+                        <Await resolve={MovieService.getLatestReleases()}>
                             {(resolvedRecommended) => (
                                 <CarrouselMovie
                                     movies={resolvedRecommended.results ?? undefined}
@@ -247,7 +243,7 @@ function Home() {
 
                 <div>
                     <Suspense fallback={<CarrouselCardActorSkeleton />}>
-                        <Await resolve={actors}>
+                        <Await resolve={ActorService.getAll()}>
                             {(resolvedActors) => (
                                 <CarrouselActor actors={resolvedActors.results ?? undefined} ref={carrouselActorRef} />
                             )}

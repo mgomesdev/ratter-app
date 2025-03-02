@@ -43,9 +43,9 @@ export interface ActorSchema {
     original_name: string;
     popularity: number;
     profile_path: string;
-    known_for: KnownFor[];
+    known_for?: KnownFor[];
     cast_id?: number;
-    character?: number;
+    character?: number | string;
     credit_id?: string;
     order?: number;
 }

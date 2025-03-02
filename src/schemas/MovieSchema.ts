@@ -38,7 +38,7 @@ export type MovieDetailGenre = {
 export interface MovieDetailSchema {
     adult: boolean;
     backdrop_path: string;
-    belongs_to_collection: {
+    belongs_to_collection?: {
         id: number;
         name: string;
         poster_path: string;
