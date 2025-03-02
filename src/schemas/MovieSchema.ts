@@ -1,7 +1,7 @@
 import { ActorCrewSchema, ActorSchema, KnownFor } from './ActorSchema';
 
 export interface MovieSchema {
-    adult: false;
+    adult: boolean;
     backdrop_path?: string;
     genre_ids?: number[];
     id: number;

@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router';
 
 import { render, screen } from '../../../core/utils/test-utils/testing-library';
 
-import moviesMock from '../../../__mocks__/movieHightsToo.mock';
+import moviesMock from '../../../../cypress/fixtures/movie/movie-popular-fixture.json';
 
 import CarrouselMovie from '../../../components/organisms/CarrouselMovie';
 
@@ -20,7 +20,7 @@ describe('Deve renderizar o CarrouselMovie corretamente', () => {
     beforeEach(() =>
         render(
             <MemoryRouter>
-                <CarrouselMovie data-testid="carrousel-movie" movies={moviesMock} />
+                <CarrouselMovie data-testid="carrousel-movie" movies={moviesMock.results} />
             </MemoryRouter>
         )
     );

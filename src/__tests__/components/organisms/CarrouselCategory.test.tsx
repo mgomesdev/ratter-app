@@ -2,7 +2,7 @@ import { render, screen } from '../../../core/utils/test-utils/testing-library';
 
 import CarrouselCategory from '../../../components/organisms/CarrouselCategory';
 
-import movieDetailMock from '../../../__mocks__/movieDetail.mock';
+import movieDetailMock from '../../../../cypress/fixtures/movie/movie-fixture.json';
 
 interface SwiperMockProps {
     children: React.ReactNode;

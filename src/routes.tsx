@@ -1,4 +1,4 @@
-import { createRoutesFromElements, createBrowserRouter, Route, defer } from 'react-router-dom';
+import { createRoutesFromElements, createBrowserRouter, Route } from 'react-router-dom';
 
 import GlobalError from './app/global-error';
 import RootLayout from './app/layout';

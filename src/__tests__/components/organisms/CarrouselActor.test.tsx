@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router';
 
 import { render, screen } from '../../../core/utils/test-utils/testing-library';
 
-import { actorMock } from '../../../__mocks__/actor.mock';
+import actorMock from '../../../../cypress/fixtures/actor/actor-fixture.json';
 import { CarrouselActor } from '../../../components/organisms/CarrouselActor';
 
 interface SwiperMockProps {

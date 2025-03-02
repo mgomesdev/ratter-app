@@ -3,7 +3,7 @@ import { render, screen } from '../../../core/utils/test-utils/testing-library';
 
 import CardMovieHighlight from '../../../components/organisms/CardMovieHighlight';
 
-import movieDetailMock from '../../../__mocks__/movieDetail.mock';
+import movieDetailMock from '../../../../cypress/fixtures/movie/movie-fixture.json';
 
 describe('Deve renderizar o CardMovieHighlight, corretamente', () => {
     beforeEach(() =>

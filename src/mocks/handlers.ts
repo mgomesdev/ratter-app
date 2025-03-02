@@ -1,4 +1,3 @@
-import { movieByIdHandlers } from './handlers/movie/movieByIdHandlers';
-import { moviePopularHandlers } from './handlers/movie/moviePopularHandlers';
+import { movieHandlers } from './handlers/movieHandlers';
 
-export const handlers = [...moviePopularHandlers, ...movieByIdHandlers];
+export const handlers = [...movieHandlers];
