@@ -9,12 +9,22 @@ import { defaultTheme } from './config/theme';
 
 import router from './routes';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+async function enableMocking() {
+    if (process.env.NODE_ENV !== 'development') return;
 
-root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={defaultTheme}>
-            <RouterProvider router={router} />
-        </ThemeProvider>
-    </React.StrictMode>
-);
+    const { worker } = await import('./mocks/browser');
+
+    return worker.start({ onUnhandledRequest: 'bypass' });
+}
+
+enableMocking().then(() => {
+    const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+    root.render(
+        <React.StrictMode>
+            <ThemeProvider theme={defaultTheme}>
+                <RouterProvider router={router} />
+            </ThemeProvider>
+        </React.StrictMode>
+    );
+});

@@ -1,4 +1,4 @@
-import { Suspense, useRef } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { Await, useLoaderData } from 'react-router';
 import styled from 'styled-components';
 
@@ -18,6 +18,7 @@ import {
 } from '../../components/organisms/CarrouselActor';
 
 import { LoaderHomeData } from './loader';
+import MovieService from '../../services/MovieService';
 
 function Home() {
     const { movieHightlightDetail, moviesHighlightsToo, moviesLatestReleases, moviesRecommended, actors } =
@@ -26,6 +27,16 @@ function Home() {
     const carrouselLatestReleaseRef = useRef<CarrouselMovieRef>(null);
     const carrouselRecommendedRef = useRef<CarrouselMovieRef>(null);
     const carrouselActorRef = useRef<CarrouselActorRef>(null);
+
+    useEffect(() => {
+        const test = async () => {
+            const a = await MovieService.getHighlights();
+
+            console.log(a);
+        };
+
+        test();
+    }, []);
 
     return (
         <>

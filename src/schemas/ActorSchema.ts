@@ -1,8 +1,8 @@
-type KnownFor = {
-    backdrop_path: string;
+export type KnownFor = {
+    backdrop_path: string | null;
     id: number;
-    title: string;
-    original_title: string;
+    title?: string;
+    original_title?: string;
     overview: string;
     poster_path: string;
     media_type: string;
@@ -10,8 +10,8 @@ type KnownFor = {
     original_language: string;
     genre_ids: Array<number>;
     popularity: number;
-    release_date: string;
-    video: boolean;
+    release_date?: string;
+    video?: boolean;
     vote_average: number;
     vote_count: number;
     name?: string;
