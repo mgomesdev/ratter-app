@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -9,94 +9,35 @@ import Icon from '../atoms/Icon';
 
 import Filter, { FilterRef } from './Filter/Filter';
 
-import useRatterStore from '../../app/store';
-
 import MovieService from '../../services/MovieService';
 import { MovieSchema } from '../../schemas/MovieSchema';
 
 export default function Header() {
-    const { filteredMovies, setFilteredMovies } = useRatterStore();
+    const [filterMovieList, setFilterMovieList] = useState<MovieSchema[]>([]);
 
     const filterButtonRef = useRef<FilterButtonRef>(null);
     const filterRef = useRef<FilterRef>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
-    const fetchAndUpdateFilterStore = useCallback(
-        async (query: string) => {
-            try {
-                const data = await MovieService.filterByQuery(query);
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault();
 
-                console.log(data);
-                if (filteredMovies) {
-                    setFilteredMovies([...filteredMovies, ...data.results]);
-                } else {
-                    setFilteredMovies(data.results);
-                }
+        const data = new FormData(e.currentTarget);
+        const query = data.get('query');
 
-                return data.results;
-            } catch {
-            } finally {
-                filterRef.current?.setLoading(false);
-            }
-        },
-        [setFilteredMovies, filteredMovies]
-    );
+        if (query) {
+            const encodeQuery = encodeURIComponent(`${query}`);
+            const data = await MovieService.filterByQuery(encodeQuery);
 
-    const getFilterData = useCallback(
-        async (query: string): Promise<MovieSchema[] | undefined> => filteredMovies ?? fetchAndUpdateFilterStore(query),
-        [fetchAndUpdateFilterStore, filteredMovies]
-    );
+            filterRef.current?.setOpenList(true);
+            setFilterMovieList(data.results);
+            filterButtonRef.current?.setCount(data.results.length);
+        }
+    };
 
-    const filterMovies = useCallback((query: string, movies: MovieSchema[]) => {
-        const normalizedQuery = query.toLowerCase().trim();
-
-        return movies.filter((movie) => {
-            const result = movie.title ? movie.title.toLowerCase() : '';
-
-            return result.includes(normalizedQuery);
-        });
-    }, []);
-
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
-        async (e) => {
-            e.preventDefault();
-
-            const data = new FormData(e.currentTarget);
-            const query = data.get('query');
-
-            if (query) {
-                try {
-                    const encodeQuery = encodeURIComponent(`${query}`);
-
-                    const data = await getFilterData(encodeQuery);
-
-                    const filterQueryOnStore = filterMovies(encodeQuery, data!);
-
-                    if (filterQueryOnStore.length > 0) {
-                        filterRef.current?.setOpenList(true);
-                        filterRef.current?.setList(filterQueryOnStore);
-                        filterButtonRef.current?.setCount(filterQueryOnStore.length);
-                    } else {
-                        const filterAndUpdateStore = await fetchAndUpdateFilterStore(encodeQuery);
-                        const filterAgain = filterMovies(encodeQuery, filterAndUpdateStore!);
-
-                        if (filterAgain.length > 0) {
-                            filterRef.current?.setOpenList(true);
-
-                            filterRef.current?.setList(filterAgain);
-                            filterButtonRef.current?.setCount(filterAgain.length);
-                        }
-                    }
-                } catch {}
-            }
-        },
-        [fetchAndUpdateFilterStore, getFilterData, filterMovies]
-    );
-
-    const handleClose = useCallback(() => {
+    const handleClose = () => {
         filterRef.current?.setOpenList(false);
-        filterRef.current?.setList([]);
-    }, []);
+    };
 
     /*
      *
@@ -120,14 +61,13 @@ export default function Header() {
     }, [handleClose]);
 
     const handleOpenListOnFocus = useCallback(() => {
-        if (filteredMovies) {
+        if (filterMovieList.length > 0) {
             filterRef.current?.setOpenList(true);
-            filterRef.current?.setList(filteredMovies);
         }
-    }, [filteredMovies]);
+    }, [filterMovieList]);
 
     return (
-        <HeaderStyled data-testid="header">
+        <HeaderStyled>
             <HeaderStyledContainer>
                 <Link to={{ pathname: '/' }}>
                     <Logo data-testid="header-logo" src="/logo.svg" alt="Rater App - Logo" />
@@ -164,7 +104,7 @@ export default function Header() {
                         />
                     </Form>
 
-                    <Filter data-testid="header-form-filter" ref={filterRef} />
+                    <Filter data-testid="header-form-filter" movieList={filterMovieList} ref={filterRef} />
                 </FormContainer>
             </HeaderStyledContainer>
         </HeaderStyled>

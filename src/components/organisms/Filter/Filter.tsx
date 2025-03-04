@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import FilterList, { FilterListRef } from './components/FilterList';
@@ -11,12 +11,13 @@ export interface FilterRef {
     setOpenSettings: (state: boolean) => void;
     setOpenList: (state: boolean) => void;
     setLoading: (state: boolean) => void;
-    setList: (movieList: MovieSchema[]) => void;
 }
 
-interface FilterProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface FilterProps extends React.HTMLAttributes<HTMLDivElement> {
+    movieList: MovieSchema[];
+}
 
-const Filter: React.ForwardRefRenderFunction<FilterRef, FilterProps> = (props, ref) => {
+const Filter: React.ForwardRefRenderFunction<FilterRef, FilterProps> = ({ movieList, ...props }, ref) => {
     const filterSettingsRef = useRef<FilterSettingsRef>(null);
     const filterListRef = useRef<FilterListRef>(null);
 
@@ -27,14 +28,13 @@ const Filter: React.ForwardRefRenderFunction<FilterRef, FilterProps> = (props, r
             setOpenSettings: (state) => filterSettingsRef.current?.setIsOpen(state),
             setOpenList: (state) => filterListRef.current?.setOpenList(state),
             setLoading: (state) => filterListRef.current?.setLoading(state),
-            setList: (movieList) => filterListRef.current?.setList(movieList),
         }),
         []
     );
 
     return (
         <FilterStyled {...props}>
-            <FilterList ref={filterListRef} />
+            <FilterList movieList={movieList} ref={filterListRef} />
             <FilterSettings ref={filterSettingsRef} />
         </FilterStyled>
     );

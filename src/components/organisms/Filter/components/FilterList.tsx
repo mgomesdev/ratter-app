@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 
@@ -14,15 +14,16 @@ import { formatVoteAverage, formatYear } from '../../../../core/utils/format';
 export interface FilterListRef {
     setOpenList: React.Dispatch<React.SetStateAction<boolean>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-    setList: React.Dispatch<React.SetStateAction<MovieSchema[]>>;
 }
 
-interface FilterListProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+interface FilterListProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    movieList: MovieSchema[];
+}
 
-const FilterList = forwardRef<FilterListRef, FilterListProps>((props, ref) => {
+const FilterList = forwardRef<FilterListRef, FilterListProps>(({ movieList, ...props }, ref) => {
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [list, setList] = useState<MovieSchema[]>([]);
+    const [list, setList] = useState<MovieSchema[]>(movieList);
 
     const navigate = useNavigate();
 
@@ -31,10 +32,13 @@ const FilterList = forwardRef<FilterListRef, FilterListProps>((props, ref) => {
         () => ({
             setOpenList: setIsOpen,
             setLoading,
-            setList,
         }),
         []
     );
+
+    useEffect(() => {
+        setList(movieList);
+    }, [movieList]);
 
     return (
         <>
