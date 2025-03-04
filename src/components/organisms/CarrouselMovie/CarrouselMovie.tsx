@@ -57,7 +57,7 @@ const CarrouselMovie: React.ForwardRefRenderFunction<CarrouselMovieRef, Carrouse
         >
             {movies &&
                 movies.length > 0 &&
-                movies.slice(1, movies.length).map((movie) => (
+                movies.slice(1, movies.length).map((movie, key) => (
                     <SwiperSlideOverride key={movie.id}>
                         <CardMovie>
                             <BadgeOverride
@@ -82,6 +82,7 @@ const CarrouselMovie: React.ForwardRefRenderFunction<CarrouselMovieRef, Carrouse
                             </HeadingOverride>
 
                             <ButtonOverride
+                                data-testid={`card-movie-assistir-trailer-${key}`}
                                 config={{ variant: 'transparent-button' }}
                                 onClick={() => navigate(`/movie/${movie.id}`)}
                             >

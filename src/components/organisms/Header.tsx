@@ -19,7 +19,7 @@ export default function Header() {
     const filterRef = useRef<FilterRef>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(async (e) => {
         e.preventDefault();
 
         const data = new FormData(e.currentTarget);
@@ -33,11 +33,11 @@ export default function Header() {
             setFilterMovieList(data.results);
             filterButtonRef.current?.setCount(data.results.length);
         }
-    };
+    }, []);
 
-    const handleClose = () => {
-        filterRef.current?.setOpenList(false);
-    };
+    const handleClose = () => filterRef.current?.setOpenList(false);
+
+    const handleOpenSettings = () => handleClose();
 
     /*
      *
@@ -48,17 +48,13 @@ export default function Header() {
      * TODO: após finalizar os components do Settings, remover os comentários.
      *
      * Por enquanto deixei para fechar a lista ao clicar no botão do filtro.
-     */
-    const handleOpenSettings = useCallback(() => {
-        /*
+     * /*
         const data = new FormData(formRef.current!);
 
         if (data.get('nome')) {
             filterRef.current?.setToggleSettings();
-        } */
-
-        handleClose();
-    }, [handleClose]);
+        } *
+     */
 
     const handleOpenListOnFocus = useCallback(() => {
         if (filterMovieList.length > 0) {

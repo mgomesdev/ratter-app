@@ -44,7 +44,7 @@ function Home() {
                     </Await>
                 </Suspense>
 
-                <SectionHighligsToo>
+                <SectionHighligsToo data-testid="section-destaques-tambem">
                     <HeadingWithBar
                         data-testid="title-highlighs-too"
                         config={{

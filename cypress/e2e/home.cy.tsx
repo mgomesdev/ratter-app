@@ -2,21 +2,18 @@ describe('Home', () => {
     beforeEach(() => cy.visit('/'));
 
     describe('TODO', () => {
-        it.only('Deve renderizar o header', () => {
+        it('Deve renderizar o header', () => {
             cy.get('header');
             cy.get('[data-testid="search"]').type('test');
             cy.get('[data-testid="header-form-search-btn-search"]').click();
-            //cy.get('[data-testid="movie-item-1"]').click();
-            //cy.url().should('match', /\/movie\/\d+$/);
-
-            cy.log('Deve renderizar o header');
-            cy.log('Ao realizar a busca do filme deve mostrar a lista de filmes correspondentes a busca');
-            cy.log('Ao clicar no filme listado, deve redirecionar para a pagina do filme clicado');
+            cy.get('[data-testid="movie-item-1"]').click();
+            cy.url().should('match', /\/movie\/\d+$/);
         });
 
         it('Deve renderizar os filmes em destaque', () => {
-            cy.log('Deve renderizar a seção filmes em destaque');
-            cy.log('Ao clicar no botão Assitir ao trailer, deve ser redirecionado para a pagina do filme.');
+            cy.get('[data-testid="section-destaques-tambem"]');
+            cy.get('[data-testid="card-movie-assistir-trailer-0"]').click();
+            cy.url().should('match', /\/movie\/\d+$/);
         });
 
         it('Deve renderizar os ultimos lançamentos', () => {
